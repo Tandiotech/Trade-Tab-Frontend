@@ -1,0 +1,434 @@
+/* Scoped from Signup/TradeTab Calculator.html — wrap tools in #tt-calc-root.calc */
+#tt-calc-root, #tt-calc-root *, #tt-calc-root *::before, #tt-calc-root *::after { box-sizing: border-box; }
+
+  #tt-calc-root {
+    --bg-0: #06080c;
+    --bg-1: #0b0f15;
+    --bg-2: #11161f;
+    --surface: rgba(20, 26, 36, 0.6);
+    --line: rgba(255,255,255,0.06);
+    --line-strong: rgba(255,255,255,0.12);
+    --ink-0: #f4f6fa;
+    --ink-1: #c8cfd9;
+    --ink-2: #8a93a1;
+    --ink-3: #5b6472;
+    --accent: oklch(0.78 0.13 175);
+    --accent-2: oklch(0.86 0.13 165);
+    --accent-ink: #042b27;
+    --positive: oklch(0.78 0.16 150);
+    --danger: oklch(0.72 0.16 25);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  #tt-calc-root .mono { font-family: 'Geist Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+
+  /* Ambient bg */
+  /* ---- Calculator shell ---- */
+  #tt-calc-root .calc {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 720px;
+    border-radius: 24px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(22,28,39,0.78), rgba(12,16,22,0.88));
+    backdrop-filter: blur(28px);
+    box-shadow: 0 60px 120px -50px rgba(0,0,0,0.85),
+                inset 0 1px 0 rgba(255,255,255,0.04);
+    overflow: hidden;
+  }
+  #tt-calc-root .calc::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--accent) 60%, transparent), transparent);
+  }
+
+  /* Header */
+  #tt-calc-root .head {
+    display: flex; align-items: center; gap: 16px;
+    padding: 22px 26px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  #tt-calc-root .head-mark {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: linear-gradient(180deg, var(--accent-2), var(--accent));
+    color: var(--accent-ink);
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.4),
+                0 8px 24px -6px color-mix(in oklch, var(--accent) 50%, transparent);
+    flex-shrink: 0;
+  }
+  #tt-calc-root .head-text { flex: 1; min-width: 0; }
+  #tt-calc-root .head-text h1 {
+    margin: 0; font-size: 19px; font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  #tt-calc-root .head-text p {
+    margin: 2px 0 0; font-size: 12.5px; color: var(--ink-2);
+    font-family: 'Geist Mono', monospace; letter-spacing: 0.02em;
+  }
+  #tt-calc-root .head-meta {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 12px; border-radius: 999px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--line);
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--ink-1);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  #tt-calc-root .head-meta .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--positive);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--positive) 18%, transparent);
+  }
+  #tt-calc-root .head-close {
+    width: 32px; height: 32px; border-radius: 10px;
+    background: transparent; border: 1px solid var(--line);
+    color: var(--ink-2);
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all .2s ease;
+  }
+  #tt-calc-root .head-close:hover { color: var(--ink-0); border-color: var(--line-strong); background: rgba(255,255,255,0.04); }
+
+  /* Tabs */
+  #tt-calc-root .tabs {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 12px;
+    background: rgba(0,0,0,0.18);
+    border-bottom: 1px solid var(--line);
+  }
+  #tt-calc-root .tab {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink-2);
+    font-family: 'Geist', sans-serif;
+    font-size: 13.5px; font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+    position: relative;
+  }
+  #tt-calc-root .tab:hover { color: var(--ink-1); background: rgba(255,255,255,0.025); }
+  #tt-calc-root .tab.active {
+    color: var(--ink-0);
+    background: rgba(255,255,255,0.04);
+    border-color: var(--line-strong);
+  }
+  #tt-calc-root .tab.active::after {
+    content: ""; position: absolute; bottom: -1px; left: 30%; right: 30%; height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    box-shadow: 0 0 12px color-mix(in oklch, var(--accent) 70%, transparent);
+  }
+  #tt-calc-root .tab .num {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; color: var(--ink-3);
+    letter-spacing: 0.1em;
+  }
+  #tt-calc-root .tab.active .num { color: var(--accent-2); }
+
+  /* Body */
+  ..body-grid {
+    display: grid; gap: 14px;
+    grid-template-columns: 1fr 1fr;
+  }
+  #tt-calc-root .body-grid.full { grid-template-columns: 1fr; }
+
+  #tt-calc-root .field { display: flex; flex-direction: column; gap: 8px; }
+  #tt-calc-root .field-row {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  #tt-calc-root .field-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--ink-1);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  #tt-calc-root .field-hint {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--ink-3);
+    letter-spacing: 0.02em;
+  }
+
+  #tt-calc-root .input-wrap {
+    display: flex; align-items: stretch;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    transition: all .2s ease;
+    overflow: hidden;
+  }
+  #tt-calc-root .input-wrap:focus-within {
+    border-color: color-mix(in oklch, var(--accent) 55%, transparent);
+    background: rgba(255,255,255,0.04);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent) 12%, transparent);
+  }
+  #tt-calc-root .input-wrap > input {
+    flex: 1; min-width: 0;
+    background: transparent; border: none; outline: none;
+    color: var(--ink-0);
+    padding: 14px 16px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 16px;
+    letter-spacing: -0.005em;
+  }
+  #tt-calc-root .input-wrap > input::placeholder { color: var(--ink-3); }
+  #tt-calc-root .input-wrap > input[type="number"]::-webkit-outer-spin-button,
+  #tt-calc-root .input-wrap > input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  #tt-calc-root .input-wrap > input[type="number"] { -moz-appearance: textfield; }
+
+  #tt-calc-root .input-wrap .prefix, .input-wrap .suffix {
+    display: inline-flex; align-items: center;
+    padding: 0 14px;
+    color: var(--ink-2);
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    background: rgba(255,255,255,0.02);
+  }
+  #tt-calc-root .input-wrap .prefix { border-right: 1px solid var(--line); }
+  #tt-calc-root .input-wrap .suffix { border-left: 1px solid var(--line); }
+
+  /* Stepper buttons inside input */
+  #tt-calc-root .step-btn {
+    background: transparent; border: none; outline: none;
+    padding: 0 12px;
+    color: var(--ink-2); cursor: pointer;
+    font-family: 'Geist Mono', monospace; font-size: 16px;
+    transition: color .15s ease;
+  }
+  #tt-calc-root .step-btn:hover { color: var(--ink-0); }
+
+  /* Pair selector */
+  #tt-calc-root .pair-select {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: var(--ink-0);
+    font-family: 'Geist Mono', monospace;
+    font-size: 13px;
+    padding: 0 28px 0 14px;
+    cursor: pointer;
+    outline: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><path d='M2 4l3 3 3-3' stroke='%238a93a1' stroke-width='1.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+  }
+  #tt-calc-root .pair-select option { background: #11161f; color: var(--ink-0); }
+
+  /* Risk pills */
+  #tt-calc-root .pill-row {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-top: 2px;
+  }
+  #tt-calc-root .pill {
+    padding: 6px 12px; border-radius: 999px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--line);
+    color: var(--ink-1);
+    font-family: 'Geist Mono', monospace; font-size: 11.5px;
+    cursor: pointer; transition: all .15s ease;
+  }
+  #tt-calc-root .pill:hover { color: var(--ink-0); border-color: var(--line-strong); }
+  #tt-calc-root .pill.active {
+    background: color-mix(in oklch, var(--accent) 14%, transparent);
+    border-color: color-mix(in oklch, var(--accent) 45%, transparent);
+    color: var(--accent-2);
+  }
+
+  /* Side selector (Long/Short) */
+  #tt-calc-root .side {
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding: 4px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    gap: 4px;
+  }
+  #tt-calc-root .side-btn {
+    padding: 10px 14px;
+    background: transparent; border: 1px solid transparent;
+    border-radius: 9px;
+    color: var(--ink-2); cursor: pointer;
+    font-size: 13px; font-family: 'Geist', sans-serif; font-weight: 500;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all .2s ease;
+  }
+  #tt-calc-root .side-btn:hover { color: var(--ink-1); }
+  #tt-calc-root .side-btn.active.long {
+    background: color-mix(in oklch, var(--positive) 18%, transparent);
+    border-color: color-mix(in oklch, var(--positive) 40%, transparent);
+    color: var(--positive);
+  }
+  #tt-calc-root .side-btn.active.short {
+    background: color-mix(in oklch, var(--danger) 18%, transparent);
+    border-color: color-mix(in oklch, var(--danger) 40%, transparent);
+    color: var(--danger);
+  }
+  #tt-calc-root .side-btn .arrow { font-size: 12px; }
+
+  /* Lot size with chips */
+  #tt-calc-root .lot-chips {
+    display: flex; gap: 6px; margin-top: 2px;
+  }
+  #tt-calc-root .lot-chip {
+    flex: 1;
+    padding: 8px 6px; border-radius: 9px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--line);
+    color: var(--ink-1);
+    font-family: 'Geist Mono', monospace; font-size: 11px;
+    cursor: pointer;
+    text-align: center;
+    transition: all .15s ease;
+  }
+  #tt-calc-root .lot-chip:hover { color: var(--ink-0); border-color: var(--line-strong); }
+  #tt-calc-root .lot-chip strong {
+    display: block; color: var(--ink-0); font-size: 12.5px; font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  #tt-calc-root .lot-chip span { color: var(--ink-3); }
+
+  /* Result panel */
+  #tt-calc-root .result {
+    margin-top: 22px;
+    border-radius: 18px;
+    border: 1px solid color-mix(in oklch, var(--accent) 25%, var(--line));
+    background:
+      radial-gradient(80% 100% at 0% 0%, color-mix(in oklch, var(--accent) 12%, transparent), transparent 60%),
+      linear-gradient(180deg, rgba(20,26,36,0.6), rgba(12,16,22,0.85));
+    padding: 22px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  #tt-calc-root .result-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  #tt-calc-root .result-tag {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10.5px; color: var(--accent-2);
+    letter-spacing: 0.16em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  #tt-calc-root .result-tag::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  #tt-calc-root .result-context {
+    font-family: 'Geist Mono', monospace; font-size: 11px;
+    color: var(--ink-3);
+  }
+  #tt-calc-root .result-main {
+    display: flex; align-items: baseline; gap: 8px;
+    margin-bottom: 4px;
+  }
+  #tt-calc-root .result-currency {
+    font-family: 'Geist Mono', monospace; font-size: 18px; color: var(--ink-2);
+    line-height: 1;
+  }
+  #tt-calc-root .result-value {
+    font-family: 'Geist Mono', monospace;
+    font-size: 56px; font-weight: 500;
+    letter-spacing: -0.04em; line-height: 1;
+    color: var(--ink-0);
+    font-variant-numeric: tabular-nums;
+  }
+  #tt-calc-root .result-unit {
+    font-family: 'Geist Mono', monospace; font-size: 14px; color: var(--ink-2);
+    margin-left: 4px;
+  }
+  #tt-calc-root .result-sub {
+    font-size: 13px; color: var(--ink-1);
+    margin-top: 4px;
+  }
+
+  #tt-calc-root .breakdown {
+    margin-top: 18px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid var(--line);
+    margin-left: -24px; margin-right: -24px;
+    margin-bottom: -22px;
+  }
+  #tt-calc-root .bd {
+    padding: 14px 24px;
+    border-right: 1px solid var(--line);
+  }
+  #tt-calc-root .bd:last-child { border-right: none; }
+  #tt-calc-root .bd .k {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; color: var(--ink-3);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  #tt-calc-root .bd .v {
+    margin-top: 4px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 15.5px; font-weight: 500;
+    color: var(--ink-0);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  #tt-calc-root .bd .v.pos { color: var(--positive); }
+  #tt-calc-root .bd .v.neg { color: var(--danger); }
+
+  /* Bottom bar */
+  #tt-calc-root .footbar {
+    padding: 16px 26px;
+    border-top: 1px solid var(--line);
+    background: rgba(0,0,0,0.18);
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Geist Mono', monospace;
+    font-size: 11.5px; color: var(--ink-3);
+  }
+  #tt-calc-root .footbar .left { display: inline-flex; align-items: center; gap: 14px; }
+  #tt-calc-root .footbar .left span { display: inline-flex; align-items: center; gap: 6px; }
+  #tt-calc-root .footbar .right { display: inline-flex; align-items: center; gap: 8px; }
+  #tt-calc-root .ghost-btn {
+    background: transparent; border: 1px solid var(--line);
+    color: var(--ink-1);
+    padding: 8px 12px; border-radius: 9px;
+    font-family: 'Geist Mono', monospace; font-size: 11px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; transition: all .15s ease;
+  }
+  #tt-calc-root .ghost-btn:hover { color: var(--ink-0); border-color: var(--line-strong); background: rgba(255,255,255,0.03); }
+  #tt-calc-root .primary-btn {
+    background: linear-gradient(180deg, var(--accent-2), var(--accent));
+    color: var(--accent-ink);
+    border: none;
+    padding: 9px 16px; border-radius: 9px;
+    font-family: 'Geist', sans-serif; font-size: 12.5px; font-weight: 600;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35),
+                0 8px 20px -8px color-mix(in oklch, var(--accent) 60%, transparent);
+    transition: transform .15s ease, box-shadow .15s ease;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  #tt-calc-root .primary-btn:hover { transform: translateY(-1px); }
+
+  /* Slide-in transition for tab content */
+  #tt-calc-root .pane { animation: fadeIn .3s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Tiny leverage marker */
+  #tt-calc-root .lev-marks {
+    display: flex; justify-content: space-between;
+    margin-top: 4px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; color: var(--ink-3);
+    letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 640px) {
+    #tt-calc-root .head { padding: 18px 18px 16px; }
+    #tt-calc-root .head-meta { display: none; }
+    ..body-grid { grid-template-columns: 1fr; }
+    #tt-calc-root .result-value { font-size: 42px; }
+    #tt-calc-root .breakdown { grid-template-columns: 1fr 1fr; }
+    #tt-calc-root .bd:nth-child(2) { border-right: none; }
+    #tt-calc-root .bd:nth-child(3) { grid-column: span 2; border-top: 1px solid var(--line); border-right: none; }
+    #tt-calc-root .tab span.tab-label { display: none; }
+    #tt-calc-root .footbar { padding: 12px 18px; flex-direction: column; gap: 10px; align-items: flex-start; }
+  }

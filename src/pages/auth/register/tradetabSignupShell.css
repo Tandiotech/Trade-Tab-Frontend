@@ -1,0 +1,687 @@
+/* Auto-scoped from Signup/signup-shell.css — mount with id="tt-signup-root" */
+#tt-signup-root,
+#tt-signup-root *,
+#tt-signup-root *::before,
+#tt-signup-root *::after {
+  box-sizing: border-box;
+}
+#tt-signup-root {
+  --bg-0: #07090d;
+  --bg-1: #0b0f15;
+  --bg-2: #11161f;
+  --surface: rgba(20, 26, 36, 0.55);
+  --surface-strong: rgba(22, 28, 39, 0.85);
+  --line: rgba(255,255,255,0.06);
+  --line-strong: rgba(255,255,255,0.12);
+  --ink-0: #f4f6fa;
+  --ink-1: #c8cfd9;
+  --ink-2: #8a93a1;
+  --ink-3: #5b6472;
+  --accent: oklch(0.78 0.13 175);
+  --accent-2: oklch(0.86 0.13 165);
+  --accent-ink: #042b27;
+  --positive: oklch(0.78 0.16 150);
+  --danger: oklch(0.72 0.16 25);
+
+  isolation: isolate;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01', 'cv11';
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink-0);
+  background: var(--bg-0);
+}
+#tt-signup-root[data-accent="violet"] {
+  --accent: oklch(0.74 0.16 295);
+  --accent-2: oklch(0.82 0.14 285);
+  --accent-ink: #160a3a;
+}
+#tt-signup-root[data-accent="amber"] {
+  --accent: oklch(0.82 0.15 75);
+  --accent-2: oklch(0.88 0.13 85);
+  --accent-ink: #2b1b03;
+}
+#tt-signup-root[data-accent="rose"] {
+  --accent: oklch(0.76 0.16 10);
+  --accent-2: oklch(0.84 0.13 20);
+  --accent-ink: #2b0710;
+}
+
+#tt-signup-root .mono { font-family: 'Geist Mono', ui-monospace, monospace; }
+#tt-signup-root .serif { font-family: 'Instrument Serif', serif; }
+
+/* Ambient background */
+#tt-signup-root .bg-stage {
+  position: fixed; inset: 0; z-index: 0; overflow: hidden;
+  background:
+    radial-gradient(60% 40% at 8% 12%, color-mix(in oklch, var(--accent) 18%, transparent) 0%, transparent 70%),
+    radial-gradient(50% 60% at 92% 88%, color-mix(in oklch, var(--accent) 10%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg, #06080c 0%, #0a0e14 50%, #06080c 100%);
+}
+#tt-signup-root .bg-grid {
+  position: absolute; inset: -1px;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(120% 80% at 50% 30%, #000 30%, transparent 80%);
+}
+#tt-signup-root .bg-noise {
+  position: absolute; inset: 0; opacity: 0.35; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Top navigation */
+#tt-signup-root .topbar {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 40px;
+}
+#tt-signup-root .logo {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-weight: 600; letter-spacing: -0.01em; font-size: 18px;
+}
+#tt-signup-root .logo-mark {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 6px 24px -8px color-mix(in oklch, var(--accent) 60%, transparent),
+              inset 0 0 0 1px rgba(255,255,255,0.18);
+  position: relative;
+}
+#tt-signup-root .logo-mark::after {
+  content: ""; position: absolute; inset: 6px;
+  background:
+    conic-gradient(from 220deg, transparent 0 50%, rgba(0,0,0,0.35) 50% 100%);
+  border-radius: 4px;
+  mask: linear-gradient(135deg, #000 30%, transparent 70%);
+}
+#tt-signup-root .nav-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 9px 14px 9px 16px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink-1);
+  font-size: 13.5px;
+  backdrop-filter: blur(14px);
+  transition: all .25s ease;
+}
+#tt-signup-root .nav-pill:hover { color: var(--ink-0); border-color: var(--line-strong); }
+#tt-signup-root .nav-pill .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 12px var(--accent);
+}
+#tt-signup-root .nav-pill .arrow {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--ink-0); color: #000;
+  font-size: 11px;
+}
+
+/* Main layout */
+#tt-signup-root .stage {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1.05fr 1fr;
+  gap: 0;
+  max-width: 1440px; margin: 0 auto;
+  padding: 8px 40px 40px;
+  min-height: calc(100vh - 86px);
+}
+#tt-signup-root[data-layout="centered"] .stage { grid-template-columns: 1fr; max-width: 720px; }
+#tt-signup-root[data-layout="centered"] .hero { display: none; }
+
+/* Hero (left) */
+#tt-signup-root .hero {
+  position: relative; padding: 40px 48px 40px 0;
+  display: flex; flex-direction: column; gap: 32px;
+  min-width: 0;
+}
+#tt-signup-root .eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px; border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line);
+  width: fit-content;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-1);
+}
+#tt-signup-root .eyebrow .live {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--positive);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--positive) 20%, transparent);
+  animation: livepulse 1.8s ease-in-out infinite;
+}
+@keyframes livepulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--positive) 25%, transparent); }
+  50% { box-shadow: 0 0 0 6px color-mix(in oklch, var(--positive) 0%, transparent); }
+}
+#tt-signup-root .hero h1 {
+  margin: 0; font-size: clamp(40px, 4.8vw, 64px);
+  font-weight: 600; letter-spacing: -0.035em; line-height: 1.02;
+  color: var(--ink-0);
+}
+#tt-signup-root .hero h1 em {
+  font-style: italic; font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  letter-spacing: 0;
+}
+#tt-signup-root .hero p.lede {
+  margin: 0; max-width: 460px;
+  color: var(--ink-1); font-size: 16px; line-height: 1.55;
+}
+
+/* Ticker / data card */
+#tt-signup-root .data-card {
+  position: relative;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(22,28,39,0.75), rgba(14,18,26,0.75));
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  box-shadow: 0 30px 80px -40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+#tt-signup-root[data-glow="true"] .data-card::before {
+  content: ""; position: absolute; inset: -1px;
+  border-radius: 23px; padding: 1px;
+  background: conic-gradient(from 140deg at 50% 50%,
+    color-mix(in oklch, var(--accent) 30%, transparent) 0deg,
+    transparent 60deg, transparent 240deg,
+    color-mix(in oklch, var(--accent) 30%, transparent) 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none;
+  animation: spin 14s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#tt-signup-root .ticker {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+}
+#tt-signup-root .ticker-cell {
+  padding: 18px 20px;
+  background: linear-gradient(180deg, rgba(20,26,36,0.6), rgba(14,18,26,0.6));
+  display: flex; flex-direction: column; gap: 8px;
+}
+#tt-signup-root .ticker-sym {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px; color: var(--ink-2); letter-spacing: 0.06em;
+}
+#tt-signup-root .ticker-sym .tag {
+  padding: 2px 6px; border-radius: 4px;
+  background: rgba(255,255,255,0.05); color: var(--ink-2);
+  font-size: 10px;
+}
+#tt-signup-root .ticker-price {
+  font-family: 'Geist Mono', monospace;
+  font-size: 22px; font-weight: 500; letter-spacing: -0.02em;
+  color: var(--ink-0);
+  font-variant-numeric: tabular-nums;
+}
+#tt-signup-root .ticker-delta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px; color: var(--positive);
+  display: inline-flex; align-items: center; gap: 4px;
+}
+#tt-signup-root .ticker-delta.down { color: var(--danger); }
+
+#tt-signup-root .chart-row {
+  padding: 22px 24px;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 24px; align-items: end;
+  border-top: 1px solid var(--line);
+}
+#tt-signup-root .balance-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--ink-2);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+#tt-signup-root .balance-num {
+  font-size: 38px; font-weight: 500; letter-spacing: -0.03em;
+  color: var(--ink-0); font-variant-numeric: tabular-nums;
+  margin-top: 4px; line-height: 1;
+}
+#tt-signup-root .balance-num .cents { color: var(--ink-2); font-size: 24px; }
+#tt-signup-root .balance-pct {
+  margin-top: 8px; font-family: 'Geist Mono', monospace;
+  font-size: 12px; color: var(--positive);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+#tt-signup-root .sparkline svg { display: block; }
+
+#tt-signup-root .stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+}
+#tt-signup-root .stat {
+  padding: 16px 20px;
+  border-right: 1px solid var(--line);
+}
+#tt-signup-root .stat:last-child { border-right: none; }
+#tt-signup-root .stat .k {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-2);
+}
+#tt-signup-root .stat .v {
+  margin-top: 4px; font-size: 18px; font-weight: 500;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+#tt-signup-root .testimonial {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding-top: 8px;
+}
+#tt-signup-root .avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, oklch(0.45 0.05 250), oklch(0.55 0.04 200));
+  flex-shrink: 0;
+  border: 1px solid var(--line-strong);
+}
+#tt-signup-root .testimonial p {
+  margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-1);
+}
+#tt-signup-root .testimonial .who {
+  margin-top: 6px; font-size: 12px; color: var(--ink-2);
+  font-family: 'Geist Mono', monospace;
+}
+
+/* Form column */
+#tt-signup-root .form-col {
+  padding: 32px 0 32px 24px;
+  display: flex; flex-direction: column;
+  min-width: 0;
+}
+#tt-signup-root[data-layout="centered"] .form-col { padding: 24px 0; }
+
+/* Stepper */
+#tt-signup-root .stepper {
+  display: flex; align-items: center; gap: 0;
+  margin-bottom: 36px;
+  padding: 6px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  width: fit-content;
+}
+#tt-signup-root .step {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px; color: var(--ink-2);
+  transition: all .3s ease;
+  cursor: default;
+}
+#tt-signup-root .step .num {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  transition: all .3s ease;
+}
+#tt-signup-root .step.done { color: var(--ink-1); }
+#tt-signup-root .step.done .num {
+  background: color-mix(in oklch, var(--accent) 18%, transparent);
+  border-color: color-mix(in oklch, var(--accent) 50%, transparent);
+  color: var(--accent-2);
+}
+#tt-signup-root .step.active {
+  background: var(--ink-0); color: #000;
+}
+#tt-signup-root .step.active .num {
+  background: #000; color: var(--ink-0); border-color: transparent;
+}
+#tt-signup-root .step-sep {
+  width: 14px; height: 1px; background: var(--line-strong);
+  margin: 0 -2px;
+}
+
+/* Form card */
+#tt-signup-root .form-card {
+  position: relative;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(20,26,36,0.5), rgba(12,16,22,0.7));
+  backdrop-filter: blur(24px);
+  padding: 36px;
+  box-shadow: 0 40px 100px -50px rgba(0,0,0,0.8),
+              inset 0 1px 0 rgba(255,255,255,0.04);
+  overflow: hidden;
+}
+#tt-signup-root[data-density="compact"] .form-card { padding: 28px; }
+
+#tt-signup-root .form-card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--accent) 70%, transparent), transparent);
+  opacity: 0.6;
+}
+
+#tt-signup-root .step-head {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 24px;
+}
+#tt-signup-root .step-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--accent-2);
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+#tt-signup-root .step-title {
+  font-size: 28px; font-weight: 500; letter-spacing: -0.025em;
+  margin: 0; line-height: 1.1;
+}
+#tt-signup-root .step-sub {
+  margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.5;
+}
+
+/* Inputs */
+#tt-signup-root .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+#tt-signup-root .field-label {
+  font-size: 12px; color: var(--ink-1);
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  display: flex; align-items: center; justify-content: space-between;
+}
+#tt-signup-root .field-hint { color: var(--ink-3); font-size: 11px; text-transform: none; letter-spacing: 0; font-family: 'Geist'; }
+
+#tt-signup-root .input-wrap {
+  position: relative;
+  display: flex; align-items: center;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: all .2s ease;
+}
+#tt-signup-root .input-wrap:focus-within {
+  border-color: color-mix(in oklch, var(--accent) 55%, transparent);
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent) 12%, transparent);
+}
+#tt-signup-root .input-wrap .lead {
+  padding-left: 16px; color: var(--ink-2); font-size: 16px;
+  display: inline-flex; align-items: center;
+}
+#tt-signup-root .input-wrap input {
+  flex: 1; min-width: 0;
+  background: transparent; border: none; outline: none;
+  color: var(--ink-0); padding: 16px;
+  font-family: 'Geist', sans-serif; font-size: 15.5px;
+  letter-spacing: -0.005em;
+}
+#tt-signup-root .input-wrap input::placeholder { color: var(--ink-3); }
+#tt-signup-root .input-wrap .trail {
+  padding-right: 14px; display: inline-flex; align-items: center; gap: 6px;
+  color: var(--ink-2); font-size: 12px;
+  font-family: 'Geist Mono', monospace;
+}
+#tt-signup-root .input-wrap .ghost-btn {
+  background: transparent; border: 1px solid var(--line);
+  color: var(--ink-1); padding: 6px 10px; border-radius: 8px;
+  font-size: 11px; font-family: 'Geist Mono', monospace;
+  cursor: pointer; letter-spacing: 0.06em; text-transform: uppercase;
+}
+#tt-signup-root .input-wrap .ghost-btn:hover { color: var(--ink-0); border-color: var(--line-strong); }
+
+/* Suggestions */
+#tt-signup-root .suggest-row {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;
+}
+#tt-signup-root .chip {
+  padding: 6px 12px; border-radius: 999px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--line);
+  font-size: 12.5px; color: var(--ink-1);
+  cursor: pointer; transition: all .15s ease;
+  font-family: 'Geist Mono', monospace;
+}
+#tt-signup-root .chip:hover {
+  background: color-mix(in oklch, var(--accent) 10%, transparent);
+  border-color: color-mix(in oklch, var(--accent) 40%, transparent);
+  color: var(--ink-0);
+}
+
+#tt-signup-root .check-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-top: 14px;
+}
+#tt-signup-root .check-row .box {
+  width: 18px; height: 18px; border-radius: 5px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255,255,255,0.03);
+  flex-shrink: 0; margin-top: 1px;
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+#tt-signup-root .check-row.checked .box {
+  background: var(--accent); border-color: var(--accent);
+}
+#tt-signup-root .check-row p {
+  margin: 0; font-size: 12.5px; color: var(--ink-2); line-height: 1.5;
+}
+#tt-signup-root .check-row a { color: var(--ink-1); text-decoration: underline; text-underline-offset: 2px; }
+
+/* Buttons */
+#tt-signup-root .btn-row {
+  display: flex; gap: 10px; margin-top: 28px;
+  align-items: center;
+}
+#tt-signup-root .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  font-family: 'Geist', sans-serif;
+  font-size: 14px; font-weight: 500; letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: all .2s ease;
+  background: transparent; color: var(--ink-0);
+}
+#tt-signup-root .btn-secondary {
+  border-color: var(--line);
+  background: rgba(255,255,255,0.025);
+  color: var(--ink-1);
+}
+#tt-signup-root .btn-secondary:hover { color: var(--ink-0); border-color: var(--line-strong); background: rgba(255,255,255,0.05); }
+#tt-signup-root .btn-primary {
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  color: var(--accent-ink);
+  font-weight: 600;
+  box-shadow: 0 10px 30px -10px color-mix(in oklch, var(--accent) 60%, transparent),
+              inset 0 1px 0 rgba(255,255,255,0.4);
+  padding-right: 16px;
+}
+#tt-signup-root .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 16px 40px -12px color-mix(in oklch, var(--accent) 65%, transparent), inset 0 1px 0 rgba(255,255,255,0.5); }
+#tt-signup-root .btn-primary:active { transform: translateY(0); }
+#tt-signup-root .btn-primary[disabled], .btn-primary[aria-disabled="true"] {
+  opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none;
+}
+#tt-signup-root .btn .kbd {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  background: rgba(0,0,0,0.18); padding: 2px 6px; border-radius: 4px;
+  color: inherit; opacity: 0.7;
+}
+#tt-signup-root .btn-flex { flex: 1; }
+
+#tt-signup-root .switch-link {
+  margin-top: 22px; text-align: center;
+  font-size: 13.5px; color: var(--ink-2);
+}
+#tt-signup-root .switch-link a { color: var(--accent-2); text-decoration: none; font-weight: 500; }
+#tt-signup-root .switch-link a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Country list */
+#tt-signup-root .country-list {
+  margin-top: 10px;
+  max-height: 280px; overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.02);
+}
+#tt-signup-root .country-row {
+  display: grid; grid-template-columns: 24px 1fr auto;
+  gap: 14px; align-items: center;
+  padding: 12px 14px;
+  cursor: pointer; transition: background .15s ease;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+#tt-signup-root .country-row:last-child { border-bottom: none; }
+#tt-signup-root .country-row:hover { background: rgba(255,255,255,0.03); }
+#tt-signup-root .country-row.selected {
+  background: color-mix(in oklch, var(--accent) 14%, transparent);
+}
+#tt-signup-root .flag {
+  width: 22px; height: 16px; border-radius: 3px;
+  display: inline-block; overflow: hidden;
+  background: #333;
+  font-size: 14px; line-height: 16px; text-align: center;
+}
+#tt-signup-root .dial { color: var(--ink-2); font-family: 'Geist Mono', monospace; font-size: 12.5px; }
+
+/* Password strength */
+#tt-signup-root .strength {
+  margin-top: 8px;
+  display: flex; gap: 4px;
+}
+#tt-signup-root .strength-bar {
+  flex: 1; height: 3px; border-radius: 2px;
+  background: rgba(255,255,255,0.06);
+  transition: background .3s ease;
+}
+#tt-signup-root .strength-meta {
+  margin-top: 8px;
+  display: flex; justify-content: space-between;
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  color: var(--ink-2);
+}
+#tt-signup-root .checklist {
+  margin-top: 10px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+}
+#tt-signup-root .checklist li {
+  list-style: none;
+  font-size: 12px; color: var(--ink-3);
+  display: flex; align-items: center; gap: 6px;
+}
+#tt-signup-root .checklist li.ok { color: var(--positive); }
+#tt-signup-root .check-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 1px solid currentColor;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 8px;
+}
+#tt-signup-root .checklist li.ok .check-dot { background: var(--positive); border-color: var(--positive); color: #04190f; }
+
+/* OTP */
+#tt-signup-root .otp-row { display: flex; gap: 10px; margin-top: 6px; }
+#tt-signup-root .otp-cell {
+  flex: 1; aspect-ratio: 1/1.1; max-width: 60px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.025);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Geist Mono', monospace; font-size: 22px;
+  color: var(--ink-0);
+}
+#tt-signup-root .otp-cell.filled { border-color: color-mix(in oklch, var(--accent) 45%, transparent); }
+#tt-signup-root .otp-cell.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--accent) 14%, transparent);
+}
+
+/* Step content transitions */
+#tt-signup-root .step-pane { animation: slideIn .35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* CTA promo */
+#tt-signup-root .promo {
+  margin-top: 22px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.025), transparent);
+}
+#tt-signup-root .promo-icon {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--accent-2);
+  flex-shrink: 0;
+}
+#tt-signup-root .promo .t { font-size: 13px; color: var(--ink-1); margin: 0 0 2px; }
+#tt-signup-root .promo .s { font-size: 11.5px; color: var(--ink-3); margin: 0; }
+#tt-signup-root .promo .cta {
+  margin-left: auto;
+  font-size: 12px; font-family: 'Geist Mono', monospace;
+  color: var(--accent-2);
+  background: transparent; border: 1px solid color-mix(in oklch, var(--accent) 40%, transparent);
+  padding: 6px 12px; border-radius: 999px;
+  cursor: pointer;
+}
+#tt-signup-root .promo .cta:hover { background: color-mix(in oklch, var(--accent) 10%, transparent); }
+
+/* Trust footer */
+#tt-signup-root .trust {
+  margin-top: 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  color: var(--ink-3); font-size: 11.5px;
+  font-family: 'Geist Mono', monospace;
+}
+#tt-signup-root .trust .badges { display: inline-flex; align-items: center; gap: 16px; }
+#tt-signup-root .trust .badges span { display: inline-flex; align-items: center; gap: 5px; }
+
+/* Final success state */
+#tt-signup-root .success-pane { text-align: center; padding: 20px 10px; }
+#tt-signup-root .success-mark {
+  width: 64px; height: 64px; border-radius: 50%;
+  margin: 0 auto 20px;
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--accent-ink);
+  box-shadow: 0 20px 40px -10px color-mix(in oklch, var(--accent) 50%, transparent);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  #tt-signup-root .stage { grid-template-columns: 1fr; }
+  #tt-signup-root .hero { padding: 8px 0 24px; }
+  #tt-signup-root .form-col { padding: 0; }
+}
+@media (max-width: 640px) {
+  #tt-signup-root .topbar { padding: 16px 20px; }
+  #tt-signup-root .stage { padding: 0 16px 24px; }
+  #tt-signup-root .form-card { padding: 24px; border-radius: 20px; }
+  #tt-signup-root .stepper { width: 100%; justify-content: space-between; }
+  #tt-signup-root .step span:not(.num) { display: none; }
+}
+
+/* Scrollbar */
+#tt-signup-root ::-webkit-scrollbar { width: 10px; height: 10px; }
+#tt-signup-root ::-webkit-scrollbar-track { background: transparent; }
+#tt-signup-root ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 999px; }
+#tt-signup-root ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
+
+/* Native <button> used for country rows — match prototype row layout */
+#tt-signup-root button.country-row {
+  font: inherit;
+  color: inherit;
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+  text-align: left;
+}
