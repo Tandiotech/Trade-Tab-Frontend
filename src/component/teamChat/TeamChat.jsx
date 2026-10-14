@@ -27,7 +27,7 @@ function TeamChat() {
       <div className="flex justify-between border-b border-b-gray-300 px-6 py-6 dark:border-darkblack-400">
         <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Team Chat</h1>
         <div className="flex items-center space-x-3">
-          <img src={"assets/logo_1.png"} className="w-14 rounded-full" alt="members" />
+          <img src={"/logo.png"} className="w-14 rounded-full" alt="members" />
         </div>
       </div>
 
@@ -37,7 +37,7 @@ function TeamChat() {
             <div key={msg.id} className={`flex ${msg.sender === "system" ? "justify-start" : "justify-end"}`}>
               <div className="flex items-end space-x-3">
                 {msg.sender === "system" && (
-                  <img src={"assets/logo_1.png"} alt="avatar" className="w-10" />
+                  <img src={"/logo.png"} alt="avatar" className="w-10" />
                 )}
                 <div className="flex items-center space-x-2">
                   <div className={`rounded-lg bg-gray-100 p-3 dark:bg-darkblack-500`}>

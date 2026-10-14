@@ -69,7 +69,7 @@ const CellsCalendarHome: React.FC<CellsCalendarProps> = ({
   const contentDictionary = {
     showLogo: (
       <div className='w-full'>
-        <img className='mx-auto w-10 opacity-60' src='logo.png' alt='logo' />
+        <img className='mx-auto w-10 opacity-60' src='/logo.png' alt='logo' />
       </div>
     ),
     showTarget: (
