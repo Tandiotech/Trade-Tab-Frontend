@@ -21,7 +21,7 @@ export default function LandingNavbar() {
       <div className='tt-nav-proto'>
         <div className='tt-nav-proto-inner'>
           <Link to='/' className='flex items-center gap-2.5 font-semibold text-[var(--tt-fg-0)] no-underline'>
-            <img src='/logo_1.png' alt='TradeTab' className='h-8 w-auto object-contain' />
+            <img src='/logo-lockup.png' alt='TradeTab' className='h-8 w-auto object-contain' />
             <span className='hidden text-[15px] tracking-tight sm:inline'>TradeTab</span>
           </Link>
 

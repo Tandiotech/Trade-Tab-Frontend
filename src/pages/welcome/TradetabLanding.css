@@ -739,9 +739,8 @@
 }
 
 .tt-lp-nav .tt-logo-img {
-  width: 34px;
   height: 34px;
-  border-radius: 9px;
+  width: auto;
   object-fit: contain;
 }
 

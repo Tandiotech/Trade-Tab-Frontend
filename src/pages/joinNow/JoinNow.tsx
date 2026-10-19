@@ -4,7 +4,7 @@ export default function JoinNow() {
     <div className="bg-joinnow min-h-screen flex flex-col items-center justify-center text-center p-6">
 
       <div className="max-w-2xl bg-slate-200 rounded-2xl px-12 py-12 shadow-2xl justify-center">
-        <img className="h-24 justify-center mx-auto mb-2 " src="/logo.png" />
+        <img className="h-24 justify-center mx-auto mb-2 " src="/logo-lockup.png" />
         <p className="text-2xl md:text-4xl font-bold text-slate-700 mb-4 md:mb-12 italic ">
           Message us to speed up your application!
         </p>

@@ -13,7 +13,7 @@ export const Insights = () => {
             </p>
             <div className='flex items-center py-4 text-slate-200'>
               <p className='text-slate-200'>Powered by</p>
-              <img src='/assets/logolight.png' className='ml-2 h-6 ' />
+              <img src='/logo-lockup.png' className='ml-2 h-6 ' />
             </div>
           </div>
         </div>

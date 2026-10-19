@@ -1,5 +1,5 @@
 import PDFTableHead from "./table/PDFTableHead";
-const imgLogo = "/assets/logo_1.png";
+const imgLogo = "/logo-lockup.png";
 import {useEffect, useState} from "react";
 
 function ExportDataHtml({

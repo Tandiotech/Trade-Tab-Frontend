@@ -54,7 +54,7 @@ export default function NavigationAffiliate() {
               <a href='/affiliate'>
                 <img
                   className='h-6 w-auto'
-                  src={isScrolled ? '/assets/logodark.png' : '/assets/logolight.png'}
+                  src='/logo-lockup.png'
                   alt='Affiliate'
                 />
               </a>

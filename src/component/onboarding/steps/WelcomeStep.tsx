@@ -18,7 +18,7 @@ export default function WelcomeStep() {
       >
         <img
           className="h-16 md:h-20 lg:h-24 mx-auto drop-shadow-2xl"
-          src="/logo_light.png"
+          src="/logo-lockup.png"
           alt="TradeTab"
         />
       </motion.div>

@@ -47,7 +47,7 @@ export default function WelcomeNavbar() {
             <div className='flex items-center justify-center md:justify-between screens-1200:justify-normal sm:items-stretch sm:justify-start w-full'>
               <div className='flex flex-shrink-0 items-center mr-5'>
                 <a href='/'>
-                  <img alt='Trade Tab' src='/assets/logo_1.png' className='h-8 w-auto' />
+                  <img alt='Trade Tab' src='/logo-lockup.png' className='h-8 w-auto' />
                 </a>
               </div>
               <div className='screens-1200:hidden'>

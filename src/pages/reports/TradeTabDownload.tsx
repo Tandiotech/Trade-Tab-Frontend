@@ -5,7 +5,7 @@ const TradeTabDownload = () => {
     <div className='min-h-screen flex flex-col justify-center items-center bg-[#0B162C] text-white px-4'>
       {/* Centered Logo */}
       <div className='mb-6 flex justify-center'>
-        <img src='/assets/logolight.png' alt='TradeTab Logo' className='w-64' />
+        <img src='/logo-lockup.png' alt='TradeTab Logo' className='w-64' />
       </div>
 
       {/* Description */}

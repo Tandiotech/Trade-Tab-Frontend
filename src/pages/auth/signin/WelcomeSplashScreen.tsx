@@ -124,7 +124,7 @@ export default function WelcomeSplashScreen({
                   animate={{ opacity: 1, scale: 1 }}
                   transition={reducedMotion ? { duration: 0.1 } : { duration: 0.4, delay: 0.05, type: 'spring', bounce: 0.25 }}
                   className='mx-auto h-14 drop-shadow-2xl md:h-16'
-                  src='/logo_light.png'
+                  src='/logo-lockup.png'
                   alt='TradeTab'
                 />
                 <motion.div
@@ -290,7 +290,7 @@ export default function WelcomeSplashScreen({
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 1, delay: 0.5, type: 'spring', bounce: 0.3 }}
                   className='mx-auto h-16 drop-shadow-2xl md:h-20 lg:h-24'
-                  src='/logo_light.png'
+                  src='/logo-lockup.png'
                   alt='TradeTab'
                 />
                 <motion.div

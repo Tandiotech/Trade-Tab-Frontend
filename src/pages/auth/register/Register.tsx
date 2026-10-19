@@ -37,8 +37,7 @@ const Register = () => {
 
       <nav className='topbar'>
         <Link to='/' className='logo'>
-          <div className='logo-mark' />
-          <span>TradeTab</span>
+          <img src='/logo-lockup.png' alt='TradeTab' className='h-7' />
         </Link>
         <Link to='/login' className='nav-pill'>
           <span className='dot' />

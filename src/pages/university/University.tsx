@@ -130,7 +130,7 @@ export default function University({ variant = 'public' }: UniversityProps) {
       description:
         'Professional forex trading education platform offering comprehensive courses from beginner to expert level',
       url: window.location.href,
-      logo: 'https://tradetab.com/logo.png',
+      logo: 'https://tradetab.com/logo-lockup.png',
       courseMode: 'online',
       offers: {
         '@type': 'Offer',

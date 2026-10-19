@@ -22,7 +22,7 @@ export default function WelcomeLandingNavbar() {
     <Disclosure as='div' className='tt-lp-nav'>
       <nav className='tt-nav'>
         <Link to='/' className='tt-brand no-underline'>
-          <img src='/logo_1.png' alt='TradeTab' className='tt-logo-img' />
+          <img src='/logo-lockup.png' alt='TradeTab' className='tt-logo-img' />
           <span className='tt-wordmark'>TradeTab</span>
         </Link>
 

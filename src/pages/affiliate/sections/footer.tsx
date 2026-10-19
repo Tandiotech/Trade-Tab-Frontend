@@ -38,7 +38,7 @@ export const FooterAffiliate = () => {
           <div className='sm:col-span-2 lg:col-span-5'>
             <Link to='/' aria-label='Go home' title='TradeTab' className='inline-flex items-center group'>
               <img 
-                src='/assets/logodark.png' 
+                src='/logo-lockup.png' 
                 className='h-9 transition-transform duration-300 group-hover:scale-105' 
                 alt='TradeTab Logo' 
               />

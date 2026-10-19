@@ -84,7 +84,7 @@ const ZohoForm = () => {
 
 
        
-       <img src='/logo.png' className='w-96 mx-auto mb-4'/>
+       <img src='/logo-lockup.png' className='w-96 mx-auto mb-4'/>
         <div className="text-2xl text-slate-700 font-bold mb-2" >Join to the Waitlist NOW!</div>
         <div className="zcwf_row">
         

@@ -91,7 +91,7 @@ function MinimalistLogin() {
     <div className='bg-login bg-cover h-screen'>
       <header className='h-16 bg-slate-900/80 flex justify-between items-center px-4'>
         <Link to='/'>
-          <img className='w-32' src='/logo_light.png' alt='Logo' />
+          <img className='w-32' src='/logo-lockup.png' alt='Logo' />
         </Link>
       </header>
 

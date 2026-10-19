@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { BiCalculator } from 'react-icons/bi';
-const logo = '/assets/logo_1.png';
+const logo = '/logo-lockup.png';
 import ProfilePicture from './ProfilePicture';
 import getUser from '../../utils/getUser.tsx';
 import JoinOurFreeTelegram from '../JoinOurFreeTelegram.tsx';

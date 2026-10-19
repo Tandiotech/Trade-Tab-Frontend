@@ -73,7 +73,7 @@ const ForgotPassword = () => {
       <header className='h-20 bg-slate-900/80 flex justify-between items-center px-2 md:px-20'>
         <div className='ml-2'>
           <Link to='/'>
-            <img className=' w-48' src='/logo_light.png' alt='Logo' />
+            <img className=' w-48' src='/logo-lockup.png' alt='Logo' />
           </Link>
         </div>
         <div className='flex items-right gap-10 mr-6'>
@@ -93,7 +93,7 @@ const ForgotPassword = () => {
         <div className='bg-slate-900/80 py-8 px-10 rounded-2xl col-span-1 mx-2'>
           <div className='flex justify-center mb-6'>
             <Link to='/'>
-              <img className='w-52' src='/logo_light.png' alt='Logo' />
+              <img className='w-52' src='/logo-lockup.png' alt='Logo' />
             </Link>
           </div>
 
